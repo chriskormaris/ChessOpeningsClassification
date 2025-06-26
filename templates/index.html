@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Openings Classification</title>
+   <link rel="stylesheet" href="static/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>FLASK APP RUNNING</h1>
+    <h2>This app can predict 5 different chess openings:</h2>
+    <ul>
+        <li>Ruy Lopez</li>
+        <li>Italian Game</li>
+        <li>Queen's Gambit</li>
+        <li>Sicilian Defense</li>
+        <li>Nimzo-Indian Defense</li>
+    </ul>
+    <h2>Please upload a chess opening image:</h2>
+    <form method="POST" action="/prediction" enctype="multipart/form-data">
+        {# This hidden_tag is a CSRF security feature. #}
+        {{ form.hidden_tag() }}
+        {{ form.chess_opening }}
+        <br>
+        {{ form.submit() }}
+    </form>
+    <h3>Created by: Christos Kormaris</h3>
+</body>
+</html>

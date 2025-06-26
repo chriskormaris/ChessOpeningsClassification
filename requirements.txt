@@ -1,0 +1,13 @@
+flask
+flask_wtf
+matplotlib
+numpy
+scikit-learn
+# torch
+# torchvision
+pillow
+keras
+# tensorflow
+tensorflow-cpu
+wtforms
+gunicorn
