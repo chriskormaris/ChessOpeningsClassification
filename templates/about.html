@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chess Openings Classifier - About</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">Chess Openings Classifier</a>
+      <div class="ms-auto text-muted small">Created by Christos Kormaris</div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="card about-card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <img src="/static/img/author.jpg" alt="Author" class="avatar">
+          <div>
+            <h3 class="mb-0">Christos Kormaris</h3>
+            <div class="text-muted small">Athens — 2025</div>
+          </div>
+        </div>
+
+        <h5 class="mb-2">Project</h5>
+        <p class="text-muted">Chess Openings Classifier is a lightweight web app that predicts common chess openings from board images. It uses a trained model to analyze piece placement and return the most likely opening (for example: Ruy Lopez, Italian Game, Queen's Gambit, Sicilian Defense).</p>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <h6 class="mb-1">Contact</h6>
+            <p class="mb-0 text-muted">Email: <a href="mailto:chriskormaris@gmail.com">chriskormaris@gmail.com</a></p>
+          </div>
+          <div class="col-md-6">
+            <h6 class="mb-1">Source & License</h6>
+            <p class="mb-0 text-muted">GitHub Repository: <a href="https://github.com/chriskormaris/ChessOpeningsClassification" target="_blank" rel="noopener">ChessOpeningsClassification</a><br>License: MIT</p>
+          </div>
+        </div>
+
+        <hr>
+
+        <h6 class="mb-2">Usage tips</h6>
+        <ul class="text-muted mb-0">
+          <li>Images can be either grayscale or RGB.</li>
+          <li>Upload clear board screenshots showing the full board.</li>
+          <li>Prefer images where pieces are distinguishable and lighting is uniform.</li>
+        </ul>
+
+        <div class="mt-4">
+          <a href="/" class="btn btn-outline-primary">Try the classifier</a>
+<!--          <a href="/contact" class="btn btn-link">More info</a>-->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-top py-3">
+    <div class="container d-flex justify-content-between">
+      <div class="small text-muted">© {{ current_year or '' }} Chess Openings Classifier</div>
+      <div class="small"><a href="/privacy" class="link-secondary">Privacy</a></div>
+    </div>
+  </footer>
+
+  <script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

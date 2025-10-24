@@ -1,28 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Chess Openings Classification</title>
-   <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <title>Chess Openings Classification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <h1>FLASK APP RUNNING</h1>
-    <h2>This app can predict 5 different chess openings:</h2>
-    <ul>
-        <li>Ruy Lopez</li>
-        <li>Italian Game</li>
-        <li>Queen's Gambit</li>
-        <li>Sicilian Defense</li>
-        <li>Nimzo-Indian Defense</li>
-    </ul>
-    <h2>Please upload a chess opening image:</h2>
-    <form method="POST" action="/prediction" enctype="multipart/form-data">
-        {# This hidden_tag is a CSRF security feature. #}
-        {{ form.hidden_tag() }}
-        {{ form.chess_opening() }}
-        <br>
-        {{ form.submit() }}
-    </form>
-    <h3>Created by: Christos Kormaris</h3>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">Chess Openings Classifier</a>
+      <div class="ms-auto text-muted small">Created by Christos Kormaris</div>
+    </div>
+  </nav>
+
+  <main class="container my-4">
+    <div class="row gy-4">
+      <div class="col-lg-8">
+        <section class="hero">
+          <h1 class="h4 mb-2">Predict Chess Opening from an Image</h1>
+          <p class="mb-3 text-muted">
+              Supported classes:
+              <ul>
+                  <li>Ruy Lopez</li>
+                  <li>Italian Game</li>
+                  <li>Queen's Gambit</li>
+                  <li>Sicilian Defense</li>
+                  <li>Nimzo-Indian Defense</li>
+              </ul>
+          </p>
+
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, msg in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ msg }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+          <form method="POST" action="/prediction" enctype="multipart/form-data" class="row g-3 align-items-center">
+            {{ form.hidden_tag() }}
+            <div class="col-12">
+              <label class="form-label">Upload chess opening image</label>
+              {{ form.chess_opening(class="form-control form-control-lg") }}
+              <div class="form-text">Accepts PNG, JPG. Max size 5MB.</div>
+            </div>
+
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-lg">{{ form.submit.label.text if form.submit.label else 'Predict' }}</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="mt-4">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title mb-2">How it works</h6>
+              <p class="card-text text-muted mb-0">Upload an image of a chess position. The model will analyze the piece arrangement and return the most likely opening.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card sticky-lg-top" style="top:1rem;">
+          <div class="card-body text-center">
+            <h6 class="mb-3">Preview</h6>
+            <img id="preview" class="preview-img mb-3" src="/static/img/placeholder.jpg" alt="preview">
+            <div id="resultArea">
+              {% if prediction %}
+                <div class="alert alert-info mb-0">Prediction: <strong>{{ prediction }}</strong></div>
+              {% else %}
+                <div class="text-muted small">No prediction yet</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-top py-3">
+    <div class="container d-flex justify-content-between">
+      <div class="small text-muted">© {{ current_year or '' }} Chess Openings Classifier</div>
+      <div class="small"><a href="/about" class="link-secondary">About</a></div>
+    </div>
+  </footer>
+
+  <script src="/static/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Simple preview script
+    (function () {
+      const input = document.querySelector('input[name="chess_opening"]');
+      const preview = document.getElementById('preview');
+      if (!input) return;
+      input.addEventListener('change', function (e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) { preview.src = '/static/img/placeholder.jpg'; return; }
+        const reader = new FileReader();
+        reader.onload = function (ev) { preview.src = ev.target.result; };
+        reader.readAsDataURL(file);
+      });
+    })();
+  </script>
 </body>
 </html>

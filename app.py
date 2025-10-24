@@ -28,7 +28,7 @@ def return_prediction(model, chess_opening_image):
 app = Flask(__name__)
 # Configure a secret SECRET_KEY
 app.config['SECRET_KEY'] = '2afe16a6d630d94cd07c68d5e35568655bf5f60bef29c4f1321fc857816afec9'
-app.config['UPLOAD_FOLDER'] = 'static/images'
+app.config['UPLOAD_FOLDER'] = 'static/img'
 
 # REMEMBER TO LOAD THE MODEL!
 chess_openings_model = load_model('chess_openings_model.h5')
@@ -46,6 +46,11 @@ class ChessOpeningForm(FlaskForm):
 def index():
     form = ChessOpeningForm()
     return render_template('index.html', form=form)
+
+
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
 
 
 @app.route('/prediction', methods=['POST'])
