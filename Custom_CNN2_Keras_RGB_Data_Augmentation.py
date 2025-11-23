@@ -12,7 +12,7 @@ from Preprocessing import *
 def custom_cnn2(num_classes=5):
     model = Sequential()
 
-    model.add(Input((100, 100, 3)))
+    model.add(Input((3, 100, 100)))
 
     model.add(Conv2D(16, (3, 3), strides=1, padding='same', activation=None))
     model.add(BatchNormalization())

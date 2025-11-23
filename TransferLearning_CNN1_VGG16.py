@@ -1,3 +1,4 @@
+import keras
 from matplotlib import pyplot as plt
 from tensorflow.keras.applications import VGG16
 from tensorflow.keras.callbacks import ModelCheckpoint
@@ -8,11 +9,13 @@ from tensorflow.keras.utils import to_categorical
 import Utilities
 from Preprocessing import *
 
+keras.backend.set_image_data_format('channels_first')
+
 
 def vgg_cnn(num_classes=5):
     model = Sequential()
 
-    base_model = VGG16(weights='imagenet', include_top=False, input_shape=(100, 100, 3))
+    base_model = VGG16(weights='imagenet', include_top=False, input_shape=(3, 100, 100))
     base_model.trainable = False
     model.add(base_model)
     model.add(Flatten())

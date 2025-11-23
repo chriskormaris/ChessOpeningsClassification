@@ -17,8 +17,10 @@ chess_openings_dict = {
 
 
 def return_prediction(model, chess_opening_image):
+    chess_opening_image = chess_opening_image.resize((100, 100))  # reduce dimensions to 100x100
+    chess_opening_image = chess_opening_image.convert('L')  # convert to grayscale
     chess_opening_image_array = np.array(chess_opening_image)
-    chess_opening_image_array = np.expand_dims(chess_opening_image_array, axis=2)
+    chess_opening_image_array = np.expand_dims(chess_opening_image_array, axis=0)
     chess_opening_image_array = np.expand_dims(chess_opening_image_array, axis=0)
     class_index = np.argmax(model.predict(chess_opening_image_array), axis=1)[0]
 
@@ -60,8 +62,6 @@ def prediction():
     file.save(file_path)
 
     chess_opening_image = Image.open(file)
-    chess_opening_image = chess_opening_image.resize((100, 100))  # reduce dimensions to 100x100
-    chess_opening_image = chess_opening_image.convert('L')  # convert to grayscale
     prediction = return_prediction(model=chess_openings_model, chess_opening_image=chess_opening_image)
 
     return render_template('prediction.html', prediction=prediction)

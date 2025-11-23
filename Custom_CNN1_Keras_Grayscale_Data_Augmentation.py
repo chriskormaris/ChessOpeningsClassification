@@ -12,7 +12,7 @@ from Preprocessing import *
 def custom_cnn1(num_classes=5):
     model = Sequential()
 
-    model.add(Input((100, 100, 1)))
+    model.add(Input((1, 100, 100)))
 
     model.add(Conv2D(16, (3, 3), strides=1, padding='same', activation=None))
     model.add(BatchNormalization())
@@ -86,8 +86,8 @@ if __name__ == '__main__':
     t_val = to_categorical(y_val, num_classes=5)
 
     model = run_cnn1(X_train, t_train, X_val, t_val)
-    # model.save('chess_openings_model.h5')
-    # model.load_weights('chess_openings_model.h5')
+    # model.save('best_model.h5')
+    # model.load_weights('best_model.h5')
 
     y_val_predicted = np.argmax(model.predict(X_val), axis=1)
     print('Validation Set metrics')

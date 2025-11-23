@@ -15,7 +15,7 @@ def plot_data(X, y, num_examples, categories, title, grayscale=True):
             if grayscale:
                 plt.imshow(X[i].squeeze(), cmap='gray')
             else:
-                plt.imshow(X[i])
+                plt.imshow(X[i].transpose(1, 2, 0))
             if col == 0:
                 ax.set_ylabel(categories[category])
             ax.set_yticks([])

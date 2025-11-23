@@ -14,30 +14,30 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 
 class CustomCNN4(nn.Module):
-    def __init__(self, in_channels=100, num_classes=5):
+    def __init__(self, in_channels=3, num_classes=5):
         super(CustomCNN4, self).__init__()
 
         self.model = torch.nn.Sequential(
             torch.nn.Conv2d(in_channels=in_channels, out_channels=32, kernel_size=3, padding=2),
             torch.nn.BatchNorm2d(num_features=32),
-            torch.nn.ReLU(),
+            torch.nn.ReLU(inplace=True),
             torch.nn.MaxPool2d(kernel_size=2),
             torch.nn.Dropout(0.4),
 
             torch.nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
             torch.nn.BatchNorm2d(num_features=64),
-            torch.nn.ReLU(),
+            torch.nn.ReLU(inplace=True),
             torch.nn.MaxPool2d(kernel_size=2),
             torch.nn.Dropout(0.4),
 
             torch.nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, padding=1),
             torch.nn.BatchNorm2d(num_features=64),
-            torch.nn.ReLU(),
+            torch.nn.ReLU(inplace=True),
             torch.nn.Dropout(0.5),
 
             torch.nn.Flatten(),
-            torch.nn.Linear(1600, 512),
-            torch.nn.ReLU(),
+            torch.nn.Linear(40000, 512),
+            torch.nn.ReLU(inplace=True),
             torch.nn.Dropout(0.5),
             torch.nn.Linear(512, num_classes),
             torch.nn.Softmax(dim=1)
@@ -85,7 +85,7 @@ def run_cnn4(
         batch_size=8,
         learning_rate=0.001
 ):
-    model = CustomCNN4(in_channels=100, num_classes=5)
+    model = CustomCNN4(in_channels=3, num_classes=5)
     model = model.to(device=device)
 
     # for plotting

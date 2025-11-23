@@ -22,6 +22,8 @@ def load_dataset(base_path='./dataset', grayscale=True, data_augmentation=False,
         grayscale=grayscale
     )
 
+    print()
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
     X_val, X_test, y_val, y_test = train_test_split(X_test, y_test, test_size=0.5, random_state=42)
 
@@ -76,9 +78,13 @@ def load_dataset(base_path='./dataset', grayscale=True, data_augmentation=False,
                     y_train = np.append(y_train, y_train[i])
 
     if grayscale:
-        X_train = np.expand_dims(X_train, axis=3)
-        X_val = np.expand_dims(X_val, axis=3)
-        X_test = np.expand_dims(X_test, axis=3)
+        X_train = np.expand_dims(X_train, axis=1)
+        X_val = np.expand_dims(X_val, axis=1)
+        X_test = np.expand_dims(X_test, axis=1)
+    else:
+        X_train = X_train.transpose((0, 3, 1, 2))
+        X_val = X_val.transpose((0, 3, 1, 2))
+        X_test = X_test.transpose((0, 3, 1, 2))
 
     if normalization:
         X_train = X_train / 255.
